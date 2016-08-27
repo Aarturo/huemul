@@ -14,7 +14,7 @@
 # Author
 #   @clsource
 
-module.exports = (robot) ->
+###module.exports = (robot) ->
 
   hubotWebSite = "http://#{robot.name}.herokuapp.com/#{robot.name}"
 
@@ -131,4 +131,4 @@ module.exports = (robot) ->
         return Math.floor(60 - timePast)
 
   getCleanName = (name) ->
-    return name[0] + '.' + name.substr(1)
+    return name[0] + '.' + name.substr(1)###

@@ -19,7 +19,9 @@ module.exports = (robot) ->
   hubotWebSite = "http://#{robot.name}.herokuapp.com/#{robot.name}"
 
   robot.hear /@?(\S*)(\b(?:\+\+|--))(\s|$)/, (response) ->
+    console.log('te escucho')
     thisUser = response.message.user
+    console.log(response.envelope.room)
     targetToken = response.match[1].trim()
     return if not targetToken
     return if not robot.adapter.client.getChannelGroupOrDMByName(response.envelope.room).is_channel
