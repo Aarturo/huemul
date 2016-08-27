@@ -25,7 +25,7 @@ module.exports = (robot) ->
     return if not robot.adapter.client.getChannelGroupOrDMByName(response.envelope.room).is_channel
     targetUser = userForToken targetToken, response
     return if not targetUser
-    return response.send "Oe no po, el karma es pa otros no pa ti!" if thisUser is targetUser
+    return response.send "vamos a calmarno, los puntos 2 brains son pa los otros no pa ti!" if thisUser is targetUser
     op = response.match[2]
     limit = canUpvote(thisUser, targetUser)
     if Number.isFinite(limit)
@@ -34,20 +34,20 @@ module.exports = (robot) ->
     modifyingKarma = if op is "++" then 1 else -1
     targetUser.karma += modifyingKarma
     karmaLog = robot.brain.get('karmaLog') or []
-    karmaLog.push("#{thisUser.name} le ha dado #{modifyingKarma} karma a #{targetUser.name} - #{new Date().toJSON()}")
+    karmaLog.push("#{thisUser.name} le ha dado #{modifyingKarma} puntos2brains a #{targetUser.name} - #{new Date().toJSON()}")
     robot.brain.set 'karmaLog', karmaLog
     robot.brain.save()
-    response.send "#{getCleanName(targetUser.name)} ahora tiene #{targetUser.karma} puntos de karma."
+    response.send "#{getCleanName(targetUser.name)} ahora tiene #{targetUser.karma} puntos2brains."
 
   robot.hear /^karma(?:\s+@?(.*))?$/, (response) ->
     targetToken = response.match[1]?.trim()
     return if not targetToken
     if targetToken.toLowerCase() in ["todos", "all"]
-      msg = "Karma de todos: #{hubotWebSite}/karma/todos"
+      msg = "puntos2brains de todos: #{hubotWebSite}/karma/todos"
     else if targetToken.toLowerCase().split(' ')[0] == 'reset'
       thisUser = response.message.user
-      if thisUser.name.toLowerCase() != "hector"
-        response.send "Tienes que ser :hector: para realizar esta función"
+      if thisUser.name.toLowerCase() != "lcruz"
+        response.send "Tienes que ser :lcruz: para realizar esta función"
         return
       resetCommand = targetToken.toLowerCase().split(' ')[1]
       return if not resetCommand
@@ -63,7 +63,7 @@ module.exports = (robot) ->
     else
       targetUser = userForToken targetToken, response
       return if not targetUser
-      msg = "#{getCleanName(targetUser.name)} tiene #{targetUser.karma} puntos de karma."
+      msg = "#{getCleanName(targetUser.name)} tiene #{targetUser.karma} puntos2brains."
     robot.brain.save()
     response.send msg
 
@@ -99,7 +99,7 @@ module.exports = (robot) ->
     else if users.length > 1
       response.send "Se más específico, Hay #{users.length} personas que se parecen a: #{(getCleanName(u.name) for u in users).join ", "}."
     else
-      response.send "Chaucha, no encuentro al usuario '#{token}'."
+      response.send "Rayos, no encuentro al usuario '#{token}'."
     user
 
   usersForToken = (token) ->
